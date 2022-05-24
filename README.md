@@ -17,11 +17,11 @@ Our goal is to create a game which resembles the Guess Who board game, where two
 Linux: ```$ source ~/mistr/bin/activate``` <br>
 Windows: ```$ source ~/mistr/Scripts/activate``` <br><br>
 - Clone the Repository <br>
-```(tea)$ git clone https://github.com/rachelxiao907/MISTR.git ``` <br><br>
+```(mistr)$ git clone https://github.com/rachelxiao907/MISTR.git ``` <br><br>
 - Install Dependencies <br>
-```(tea)$ cd MISTR ``` <br>
-```(tea)$ pip install -r requirements.txt``` <br><br> 
+```(mistr)$ cd MISTR ``` <br>
+```(mistr)$ pip install -r requirements.txt``` <br><br> 
 - Run the App <br>
-```(tea)$ cd app``` <br>
-```(tea)$ python3 __init__.py``` <br><br>
+```(mistr)$ cd app``` <br>
+```(mistr)$ python3 __init__.py``` <br><br>
 - Open the website at http://127.0.0.1:5000/
