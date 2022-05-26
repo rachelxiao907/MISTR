@@ -1,0 +1,10 @@
+MISTR: Rachel Xiao (PM), Michelle Lo, Theo Fahey, Sadid E Ethun
+SoftDev
+P04: Guess Who
+2022-05-27
+
+Design Doc Updates:
+2022-06-26
+* Clarified game rules in game mechanics.
+* Edited programming components for clarity.
+* Clarified the utility of the chatbox feature.
