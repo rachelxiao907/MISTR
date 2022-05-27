@@ -1,12 +1,12 @@
 # Guess Who by MISTR
 ## Members
-* Rachel Xiao (PM)
-* Michelle Lo
-* Theo Fahey
-* Sadid E Ethun
+* Rachel Xiao (PM) - Chatbox with SQL
+* Michelle Lo - Enable user actions with JS
+* Theo Fahey - Websockets
+* Sadid E Ethun - Interactive game board with JS
 
 ## Project Description
-Our goal is to create a game which resembles the Guess Who board game, where two people use process of elimination to try and figure out who their mystery person is. The first person to do so is the winner.
+Our goal is to create a game which resembles the Guess Who board game, where two people ask each other questions via a chatbox on the site and use the process of elimination to try and figure out who the other's person is. The first person to do so is the winner.
 
 ## APIs Used
 
