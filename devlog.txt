@@ -8,3 +8,6 @@ Design Doc Updates:
 * Clarified game rules in game mechanics
 * Edited programming components for clarity
 * Clarified the game's features
+
+rachelX -- 2022-06-01 09:08 
+User login and register is done
