@@ -11,34 +11,39 @@ P04 -- Le Fin
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        <title>Login</title>
+        <title>Register</title>
     </head>
 
     <body>
         <h1>Guess Who</h1>
 
-        <form method="POST" action="/login">
+        <form method="POST" action="/register">
           <br>
           <div class="form-floating form-group mb-4">
-            <input class="form-control" type="username" placeholder="i can be BIIIG" id="exampleInputUsername1 floatingInput" name="username" aria-describedby="usernameHelp" required>
+            <input class="form-control" type="username" placeholder="i can be BIIIG" id="exampleInputUsername1 floatingInput" name="newusername" aria-describedby="usernameHelp" required>
             <label for="floatingInput exampleInputUsername1"> username</label>
           </div>
 
           <div class="form-floating form-group mb-4">
-            <input class="form-control" type="password" placeholder="i can be BIIIG" id="exampleInputPassword1 floatingInput" name="password" aria-describedby="usernameHelp" required>
+            <input class="form-control" type="password" placeholder="i can be BIIIG" id="exampleInputPassword1 floatingInput" name="newpassword" aria-describedby="usernameHelp" required>
             <label for="floatingInput exampleInputPassword1"> password </label>
+          </div>
+
+          <div class="form-floating form-group mb-4">
+            <input class="form-control" type="password" placeholder="i can be BIIIG" id="exampleInputPassword1 floatingInput" name="newpassword1" aria-describedby="usernameHelp" required>
+            <label for="floatingInput exampleInputPassword1"> confirm password </label>
           </div>
 
           <center>
              <div class="form-group">
-               <input type="submit" value="Login" class="btn btn-secondary submitbutton"></input>
+               <input type="submit" value="Register" class="btn btn-secondary submitbutton"></input>
              </div>
            </center>
          </form>
 
          <div class="form-group">
            <p style="color:red;">{{ explain }}</p>
-           <a id="register" href = "/register"> Don't have an Account? Sign up!</a>
+           <a id="login" href = "/login"> Have an Account? Login!</a>
          </div>
 
     </body>
