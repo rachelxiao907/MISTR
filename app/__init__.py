@@ -64,13 +64,13 @@ def register():
 		return render_template("register.html")
 
 	# Check sign up
-	user = request.form["newusername"]
-	pwd = request.form["newpassword"]
+	user = request.form["new_username"]
+	pwd = request.form["new_password"]
 	if user.strip() == "" or pwd.strip == "":
 		return render_template("register.html", explain="Username or Password cannot be blank")
 
 	# Add user information if passwords match
-	if (request.form["newpassword"] != request.form["newpassword1"]):
+	if (request.form["new_password"] != request.form["confirm_password"]):
 		return render_template("register.html", explain="The passwords do not match")
 
 	register_success = db.register_user(user, pwd) #checks if not successful in the database file
