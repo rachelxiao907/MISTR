@@ -12,5 +12,8 @@ Design Doc Updates:
 rachelX -- 2022-06-01 09:08 
 User login and register is done
 
-michelleL -- 2022-05-02 09:17
-Added a js created board - WIP.
+michelleL -- 2022-06-02 09:17
+Added a js created board - WIP
+
+rachelX -- 2022-06-03 09:18
+Added more images for game board

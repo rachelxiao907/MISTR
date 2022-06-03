@@ -1,5 +1,7 @@
 function display() {
 
+  pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png"];
+
   var rows = 4;
   var cols = 6;
 
@@ -13,7 +15,9 @@ function display() {
   for (var i = 0; i < board.length; i++) {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
-        html += "<td> <img src=\"https://cdn.britannica.com/28/215028-050-94E9EA1E/American-actor-Chris-Evans-2019.jpg\" width=\"100\"> </td>";
+        if (j < pics.length) {
+          html += "<td> <img src=\"static/img/"+pics[i]+"\" width=\"100\"> </td>";
+        }
       }
       html += "</tr>";
   }
