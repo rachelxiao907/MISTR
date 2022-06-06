@@ -1,6 +1,6 @@
 function display() {
 
-  pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png"];
+  pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png", "tom.png", "susan.png", "richard.png", "philip.png", "sam.png", "robert.png", "peter.png", "charles.png", "joe.png", "maria.png", "claire.png", "eric.png", "george.png", "herman.png", "bill.png", "frans.png", "anita.png", "alfred.png"];
 
   var rows = 4;
   var cols = 6;
@@ -15,18 +15,26 @@ function display() {
   for (var i = 0; i < board.length; i++) {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
-        if (j < pics.length) {
-          html += "<td> <img src=\"static/img/"+pics[i]+"\" width=\"100\"> </td>";
-        }
+        html += "<td> <img src=\"static/img/"+pics[i*cols+j]+"\" width=\"100\"> </td>";
       }
       html += "</tr>";
   }
   gameboard.insertAdjacentHTML("beforeend", html);
 }
 
-function test() {
-  console.log("hello");
+// takes in an image's link
+function name(str) {
+  name = "";
+  for (var i = 0; i < str.length; i++) {
+    if (str.charAt(i) != ".") {
+      name += str.charAt(i);
+    } else {
+      break;
+    }
+  }
+  return name;
 }
 
-test();
+console.log(name("hi.png"));
+
 display();
