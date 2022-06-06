@@ -1,4 +1,4 @@
-function display() {
+function setup() {
 
   pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png", "tom.png", "susan.png", "richard.png", "philip.png", "sam.png", "robert.png", "peter.png", "charles.png", "joe.png", "maria.png", "claire.png", "eric.png", "george.png", "herman.png", "bill.png", "frans.png", "anita.png", "alfred.png"];
 
@@ -10,6 +10,7 @@ function display() {
     board[i] = new Array(cols);
   }
 
+  var mystery_id = 4;
   var gameboard = document.getElementById("gameboard");
   var html = "";
   for (var i = 0; i < board.length; i++) {
@@ -35,6 +36,5 @@ function name(str) {
   return name;
 }
 
-console.log(name("hi.png"));
-
-display();
+test();
+setup();
