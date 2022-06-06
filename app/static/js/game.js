@@ -1,5 +1,7 @@
 function setup() {
 
+  pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png"];
+
   var rows = 4;
   var cols = 6;
 
@@ -14,6 +16,9 @@ function setup() {
   for (var i = 0; i < board.length; i++) {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
+        if (j < pics.length) {
+          html += "<td> <img src=\"static/img/"+pics[i]+"\" width=\"100\"> </td>";
+        }
       }
       html += "</tr>";
   }
