@@ -9,7 +9,7 @@ Design Doc Updates:
 * Edited programming components for clarity
 * Clarified the game's features
 
-rachelX -- 2022-06-01 09:08 
+rachelX -- 2022-06-01 09:08
 User login and register is done
 
 michelleL -- 2022-06-02 09:17
@@ -21,5 +21,11 @@ Added more images for game board
 rachelX -- 2022-06-06 09:15
 Finished the board with all images
 
+michelleL -- 2022-06-06 09:20
+Characters info stored in objects.
+
 rachelX -- 2022-06-06 09:24
 Functions for creating and joining a game in database
+
+michelleL -- 2022-06-06 18:33
+Clicking a table cell will now "flip" it over

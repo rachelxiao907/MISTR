@@ -25,6 +25,7 @@ for (var i = 0; i < board.length; i++) {
   board[i] = new Array(cols);
 }
 
+//populating array of objects
 for (var i = 0; i < board.length; i++) {
   for (var j = 0; j < board[i].length; j++) {
     board[i][j] = {
@@ -34,15 +35,22 @@ for (var i = 0; i < board.length; i++) {
   }
 }
 
+opp_mystery = Math.floor(Math.random() * 24); //opponent's mystery person
+user_mystery = Math.floor(Math.random() * 24); //user's mystery person
+
+//setting up the board
 function setup() {
-  var mystery_id = 4;
   var gameboard = document.getElementById("gameboard");
   var html = "";
   for (var i = 0; i < board.length; i++) {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
+        cell_id = (i * cols + j);
+        if (cell_id == user_mystery) {
+          cell_id = "m"; //m for mystery
+        }
         if (j < pics.length) {
-          html += "<td> <img src=\"static/img/"+board[i][j].pic+"\" width=\"100\"> </td>";
+          html += "<td id=" + cell_id + " class=show> <img src=\"static/img/"+board[i][j].pic+"\" width=\"100\"> <p>" + board[i][j].name + " </p> </td>";
         }
       }
       html += "</tr>";
@@ -50,6 +58,18 @@ function setup() {
   gameboard.insertAdjacentHTML("beforeend", html);
 }
 
-
+//clicking a table cell "flips" the card
+function on_click() {
+  document.querySelectorAll('td').forEach(cell => {
+    cell.addEventListener('click', event => {
+      if (cell.className == "show") {
+        cell.className = "flipped";
+      } else {
+        cell.className = "show";
+      }
+    })
+  })
+}
 
 setup();
+on_click();
