@@ -17,3 +17,9 @@ Added a js created board - WIP
 
 rachelX -- 2022-06-03 09:18
 Added more images for game board
+
+rachelX -- 2022-06-06 09:15
+Finished the board with all images
+
+rachelX -- 2022-06-06 09:24
+Functions for creating and joining a game in database

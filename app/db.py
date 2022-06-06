@@ -12,6 +12,18 @@ cur.execute("""
       wins INTEGER,
       games INTEGER)""")
 
+cur.execute("""
+	CREATE TABLE IF NOT EXISTS chatbox(
+	  id INTEGER PRIMARY KEY,
+	  questions TEXT,
+	  answers TEXT)""")
+
+cur.execute("""
+	CREATE TABLE IF NOT EXISTS games(
+	  id INTEGER PRIMARY KEY,
+	  players INTEGER,
+	  winner INTEGER)""")
+
 db.commit()
 db.close()
 
@@ -83,3 +95,35 @@ def fetch_username(user_id):
 
 	db.close()
 	return
+
+
+def create_game():
+	db = sqlite3.connect(DB_FILE)
+	c = db.cursor()
+
+	c.execute("""INSERT INTO games(players, winner) VALUES(?, ?)""",(1, ""))
+	db.commit()
+	db.close()
+	return True
+
+
+def join_game(game_id):
+	db = sqlite3.connect(DB_FILE)
+	db.row_factory = lambda curr, row: row[0]
+	c = db.cursor()
+
+	c.execute("""
+		SELECT players
+		FROM   games
+		WHERE  id = ?
+	""", (game_id))
+
+	players = c.fetchone()
+
+	if players == 2 or players == None:
+		return False
+
+	c.execute("""INSERT INTO games(players, winner) VALUES(?, ?)""",(2, ""))
+	db.commit()
+	db.close()
+	return True
