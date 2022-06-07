@@ -23,7 +23,6 @@ td {
   object-fit: cover;
 }
 
-
 .flipped img {
   visibility: hidden;
   width: 100%;
@@ -32,4 +31,8 @@ td {
 
 .flipped > p {
   color: white;
+}
+
+.chosen {
+  background-color: green;
 }

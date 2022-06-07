@@ -60,12 +60,20 @@ function setup() {
 
 //clicking a table cell "flips" the card
 function on_click() {
+  var click = 0;
   document.querySelectorAll('td').forEach(cell => {
     cell.addEventListener('click', event => {
-      if (cell.className == "show") {
-        cell.className = "flipped";
+      if (click < 1) {
+        cell.className = "chosen";
+        click++;
       } else {
-        cell.className = "show";
+        if (cell.className == "show") {
+          cell.className = "flipped";
+        } else {
+          if (cell.className == "flipped") {
+            cell.className = "show";
+          }
+        }
       }
     })
   })
