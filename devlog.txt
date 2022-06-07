@@ -29,3 +29,6 @@ Functions for creating and joining a game in database
 
 michelleL -- 2022-06-06 18:33
 Clicking a table cell will now "flip" it over
+
+michelleL -- 2022-06-07 09:07
+Select mode will select cells (WIP)

@@ -38,8 +38,10 @@ for (var i = 0; i < board.length; i++) {
 opp_mystery = Math.floor(Math.random() * 24); //opponent's mystery person
 user_mystery = Math.floor(Math.random() * 24); //user's mystery person
 
+var select_mode;
 //setting up the board
 function setup() {
+  select_mode = false;
   var gameboard = document.getElementById("gameboard");
   var html = "";
   for (var i = 0; i < board.length; i++) {
@@ -58,18 +60,76 @@ function setup() {
   gameboard.insertAdjacentHTML("beforeend", html);
 }
 
+var selected_cell;
 //clicking a table cell "flips" the card
-function on_click() {
+function flip() {
+  // console.log("select_mode: " + select_mode);
   document.querySelectorAll('td').forEach(cell => {
     cell.addEventListener('click', event => {
-      if (cell.className == "show") {
-        cell.className = "flipped";
+      console.log("select_mode: " + select_mode);
+      if (select_mode == false) {
+        if (cell.className == "show") {
+          cell.className = "flipped";
+        } else {
+          cell.className = "show";
+        }
       } else {
-        cell.className = "show";
+        if (cell.className != "flipped") {
+          if (selected_cell == undefined) {
+            selected_cell = cell;
+            cell.className = "selected";
+          } else {
+            selected_cell.className = "show";
+            selected_cell = cell;
+            cell.className = "selected";
+          }
+        }
+
       }
     })
   })
+
 }
 
+
+function toggle_select() {
+  var selectmode_btn = document.getElementById("select_mode");
+  if (select_mode == false) {
+    select_mode = true;
+    selectmode_btn.innerText = "Select Mode ON";
+  } else {
+    select_mode = false;
+    selectmode_btn.innerText = "Select Mode OFF";
+  }
+  console.log("select_mode: " + select_mode);
+}
+
+function select_on() {
+  if (select_mode == false) {
+    select_mode = true;
+  }
+  console.log("select_mode: " + select_mode);
+}
+
+function select_off() {
+  if (select_mode == true) {
+    select_mode = false;
+  }
+  console.log("select_mode: " + select_mode);
+}
+
+function selectmode_btn() {
+  selectmode_btn = document.getElementById("select_mode");
+  selectmode_btn.addEventListener('click', toggle_select);
+}
+
+function select_btn() {
+  select_btn = document.getElementById("select");
+  select_btn.addEventListener('click', select_off);
+}
+
+
 setup();
-on_click();
+flip();
+select_btn();
+selectmode_btn();

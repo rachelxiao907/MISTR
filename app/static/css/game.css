@@ -1,7 +1,7 @@
 td {
   /* background-color: pink; */
   width: 100px;
-  height: 150px;
+  height: 125px;
   background-color: black;
   text-align: center;
 }
@@ -14,7 +14,7 @@ td {
   background-color: pink;
   background-size: cover;
   width: 100px;
-  height: 150px;
+  height: 125px;
 }
 
 .show img {
@@ -31,5 +31,13 @@ td {
 }
 
 .flipped > p {
+  color: white;
+}
+
+.selected {
+  background-color: blue;
+}
+
+.selected > p {
   color: white;
 }
