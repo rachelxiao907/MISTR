@@ -30,15 +30,16 @@
     <section class="container">
       <div class="d-flex flex-row flex-around justify-content-evenly align-items-center flex-column flex-lg-row flex-grow-0">
       <div class="p-2 p-lg-5">
-        <h2 class="text-primary mb-4"><strong>Login</strong></h2>
-        <div>
-          <p style="color: red">{{explain}}</p>
-          <form method="post" action="/login">
-            <input style="width: 300px;" type="text" name="username" placeholder="Username" class="form-control mb-3"/>
-            <input style="width: 300px;" type="password" name="password" placeholder="Password" class="form-control mb-3"/>
-            <input type="submit" name="authenticate" value="Log In" class="btn btn-primary"/>
-          </form>
-        </div>
+        <h2 class="text-primary mb-4"><strong>Create or Join a Game</strong></h2>
+
+        <div class="input-group">
+            <form method="POST" action="/lobby">
+                <input name="add" type="submit" value="Create Game" class="btn btn-secondary"></input>
+                <br><br><br>
+                <input style="width: 300px;" type="text" name="code" placeholder="Code" class="form-control mb-3"/>
+                <input name="add" type="submit" value="Join Game" class="btn btn-secondary"></input> 
+            </form>
+          </div>
     </section>
   </body>
 </html>

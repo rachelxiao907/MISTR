@@ -46,7 +46,7 @@ def login():
 	session["user"] = db.fetch_username(user_id)
 	session["user_id"] = user_id
 
-	return redirect("/game")
+	return render_template("lobby.html")
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -78,6 +78,11 @@ def register():
 		return render_template("register.html", explain="Username already exists")
 	else:
 		return redirect("/login")
+
+
+@app.route("/lobby")
+def lobby():
+	return render_template("lobby.html")
 
 
 @app.route("/game")

@@ -19,10 +19,15 @@ cur.execute("""
 	  answers TEXT)""")
 
 cur.execute("""
+	CREATE TABLE IF NOT EXISTS rooms(
+	  id INTEGER,
+	  mysteries TEXT)""")
+
+cur.execute("""
 	CREATE TABLE IF NOT EXISTS games(
 	  id INTEGER PRIMARY KEY,
 	  players INTEGER,
-	  winner INTEGER)""")
+	  users TEXT)""")
 
 db.commit()
 db.close()
@@ -97,24 +102,24 @@ def fetch_username(user_id):
 	return
 
 
-def create_game():
+def create_game(username):
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO games(players, winner) VALUES(?, ?)""",(1, ""))
+	c.execute("""INSERT INTO rooms(players, users) VALUES(?, ?)""",(1, username+"\n"))
 	db.commit()
 	db.close()
 	return True
 
 
-def join_game(game_id):
+def join_game(game_id, username):
 	db = sqlite3.connect(DB_FILE)
 	db.row_factory = lambda curr, row: row[0]
 	c = db.cursor()
 
 	c.execute("""
 		SELECT players
-		FROM   games
+		FROM   rooms
 		WHERE  id = ?
 	""", (game_id))
 
@@ -123,7 +128,11 @@ def join_game(game_id):
 	if players == 2 or players == None:
 		return False
 
-	c.execute("""INSERT INTO games(players, winner) VALUES(?, ?)""",(2, ""))
+	c.execute("""INSERT INTO rooms(players, users) VALUES(?, ?)""",(2, username))
+
+	# Create a game when there are enough players for a game
+	#c.execute("""INSERT INTO games(players, users) VALUES(?, ?)""",(1, username+"\n"))
+
 	db.commit()
 	db.close()
 	return True
