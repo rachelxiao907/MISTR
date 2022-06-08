@@ -38,3 +38,6 @@ Modified database to have two datatables in monitoring games
 
 michelleL -- 2022-06-07 07:48
 Modified select mode to now have a select confirm button
+
+michelleL -- 2022-06-07 09:11
+Started chat box.
