@@ -86,12 +86,12 @@ def lobby():
         return render_template("lobby.html")
     elif request.method == "POST":
         code = request.form["code"]
-
         if code == "": #if no code is entered, assume user is creating a game
             code = db.create_game(session["user"])
             return render_template("game.html", code=code)
         else:
             db.join_game(code, session["user"])
+            return render_template("game.html", code=code)
 
 
 @app.route("/game")
