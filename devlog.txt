@@ -36,5 +36,8 @@ Select mode will select cells (WIP)
 rachelX -- 2022-06-07 09:26
 Modified database to have two datatables in monitoring games
 
+michelleL -- 2022-06-07 07:48
+Modified select mode to now have a select confirm button
+
 rachelX -- 2022-06-08 09:07
 Create game works

@@ -61,6 +61,7 @@ function setup() {
 }
 
 var selected_cell;
+
 //clicking a table cell "flips" the card
 function flip() {
   // console.log("select_mode: " + select_mode);
@@ -91,7 +92,7 @@ function flip() {
 
 }
 
-
+//function for toggle select
 function toggle_select() {
   var selectmode_btn = document.getElementById("select_mode");
   if (select_mode == false) {
@@ -99,21 +100,29 @@ function toggle_select() {
     selectmode_btn.innerText = "Select Mode ON";
   } else {
     select_mode = false;
+    selected_cell = undefined;
+    selected_cell.className = "show";
     selectmode_btn.innerText = "Select Mode OFF";
   }
   console.log("select_mode: " + select_mode);
 }
 
-function select_on() {
-  if (select_mode == false) {
-    select_mode = true;
-  }
-  console.log("select_mode: " + select_mode);
-}
+var confirmed_select;
 
-function select_off() {
-  if (select_mode == true) {
-    select_mode = false;
+//function for select confirm button
+function select() {
+  if (select_mode){
+    is_confirmed = confirm("Select this character? Selecting a character will pass your turn.\n " + selected_cell.innerText);
+    if (is_confirmed) {
+      confirmed_select = selected_cell;
+      //do smth about confirmed_select
+      console.log(confirmed_select.innerText);
+      confirmed_select.className = "show";
+      selected_cell = undefined;
+      if (select_mode == true) {
+        select_mode = false;
+      }
+    }
   }
   console.log("select_mode: " + select_mode);
 }
@@ -125,7 +134,7 @@ function selectmode_btn() {
 
 function select_btn() {
   select_btn = document.getElementById("select");
-  select_btn.addEventListener('click', select_off);
+  select_btn.addEventListener('click', select);
 }
 
 
