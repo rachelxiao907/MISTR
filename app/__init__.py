@@ -46,7 +46,7 @@ def login():
 	session["user"] = db.fetch_username(user_id)
 	session["user_id"] = user_id
 
-	return render_template("lobby.html")
+	return redirect("/lobby")
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -80,9 +80,18 @@ def register():
 		return redirect("/login")
 
 
-@app.route("/lobby")
+@app.route("/lobby", methods=['GET', 'POST'])
 def lobby():
-	return render_template("lobby.html")
+    if request.method == "GET":
+        return render_template("lobby.html")
+    elif request.method == "POST":
+        code = request.form["code"]
+
+        if code == "": #if no code is entered, assume user is creating a game
+            code = db.create_game(session["user"])
+            return render_template("game.html", code=code)
+        else:
+            db.join_game(int(code), session["user"])
 
 
 @app.route("/game")
