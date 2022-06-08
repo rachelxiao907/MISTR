@@ -91,7 +91,7 @@ def lobby():
             code = db.create_game(session["user"])
             return render_template("game.html", code=code)
         else:
-            db.join_game(int(code), session["user"])
+            db.join_game(code, session["user"])
 
 
 @app.route("/game")
