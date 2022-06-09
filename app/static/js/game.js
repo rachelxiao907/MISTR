@@ -65,33 +65,40 @@ var selected_cell;
 //clicking a table cell "flips" the card
 function flip() {
   // console.log("select_mode: " + select_mode);
+  var click = 0;
   document.querySelectorAll('td').forEach(cell => {
     cell.addEventListener('click', event => {
       console.log("select_mode: " + select_mode);
       if (select_mode == false) {
-        if (cell.className == "show") {
-          cell.className = "flipped";
+        if (click < 1) {
+          cell.className = "chosen";
+          click++;
         } else {
-          cell.className = "show";
-        }
-      } else {
-        if (cell.className != "flipped") {
-          if (selected_cell == undefined) {
-            selected_cell = cell;
-            cell.className = "selected";
+          if (cell.className == "show") {
+            cell.className = "flipped";
           } else {
-            selected_cell.className = "show";
-            selected_cell = cell;
-            cell.className = "selected";
+            if (cell.className == "flipped") {
+              cell.className = "show";
+            }
           }
         }
-
+      } else {
+        if (click > 0) {
+          if (cell.className != "flipped") {
+            if (selected_cell == undefined) {
+              selected_cell = cell;
+              cell.className = "selected";
+            } else {
+              selected_cell.className = "show";
+              selected_cell = cell;
+              cell.className = "selected";
+            }
+          }
+        }
       }
     })
   })
-
 }
-
 //function for toggle select
 function toggle_select() {
   var selectmode_btn = document.getElementById("select_mode");
