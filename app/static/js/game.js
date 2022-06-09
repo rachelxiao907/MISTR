@@ -137,6 +137,27 @@ function select_btn() {
   select_btn.addEventListener('click', select);
 }
 
+//chatbox
+$(function() {
+  $('#submitmsg').bind('click', function() {
+    var usermsg = $('#usermsg').val();
+    console.log(usermsg);
+    $.ajax({
+      url : '/chatbox',
+      type : 'POST',
+      contentType: "application/json",
+      data : JSON.stringify({
+        "usermsg" : usermsg
+      }),
+
+    })
+    .done(function(data){
+
+
+    });
+  });
+})
+
 
 setup();
 flip();

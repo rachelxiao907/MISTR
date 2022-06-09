@@ -3,8 +3,10 @@
 # P04 -- Le Fin
 # 2022-05-27
 
-from flask import Flask, request, redirect, render_template, session
+from flask import Flask, request, redirect, render_template, session, jsonify
 import db
+import json
+
 
 app = Flask(__name__)
 app.secret_key = "foo"
@@ -98,6 +100,13 @@ def lobby():
 def game():
     return render_template("game.html")
 
+@app.route("/chatbox", methods=['GET', 'POST'])
+def chatbox():
+    print(request.method)
+    if request.method == "POST":
+        msg = request.get_json()
+        print(msg)
+        return msg
 
 if __name__ == "__main__":
     app.debug = True
