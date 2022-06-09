@@ -137,11 +137,13 @@ function select_btn() {
   select_btn.addEventListener('click', select);
 }
 
+chat = "";
 //chatbox
 $(function() {
   $('#submitmsg').bind('click', function() {
     var usermsg = $('#usermsg').val();
     console.log(usermsg);
+    update_chat(usermsg);
     $.ajax({
       url : '/chatbox',
       type : 'POST',
@@ -152,11 +154,18 @@ $(function() {
 
     })
     .done(function(data){
+      // update_chat();
 
 
     });
   });
 })
+
+function update_chat(usermsg) {
+  var chatbox = document.getElementById("container");
+  var prevState = chatbox.innerHTML;
+  chatbox.innerHTML = prevState + "<br> <b>" + username + ": </b>" + usermsg;
+}
 
 
 setup();

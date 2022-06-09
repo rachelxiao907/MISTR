@@ -12,11 +12,17 @@ cur.execute("""
       wins INTEGER,
       games INTEGER)""")
 
+# cur.execute("""
+# 	CREATE TABLE IF NOT EXISTS chatbox(
+# 	  id INTEGER PRIMARY KEY,
+# 	  questions TEXT,
+# 	  answers TEXT)""")
+
 cur.execute("""
 	CREATE TABLE IF NOT EXISTS chatbox(
 	  id INTEGER PRIMARY KEY,
-	  questions TEXT,
-	  answers TEXT)""")
+	  username TEXT,
+	  message TEXT)""")
 
 cur.execute("""
 	CREATE TABLE IF NOT EXISTS games(
@@ -138,3 +144,25 @@ def join_game(game_id, username):
 	db.commit()
 	db.close()
 	return True
+
+def add_message(username, message):
+	db = sqlite3.connect(DB_FILE)
+	c = db.cursor()
+
+	c.execute("""INSERT INTO chatbox(username, message) VALUES(?, ?)""",(username, message))
+	db.commit()
+	db.close()
+	return True
+
+def latest_messagedata():
+	db = sqlite3.connect(DB_FILE)
+	c = db.cursor()
+
+	c.execute("""
+		SELECT id
+		FROM chatbox
+		ORDER BY id DESC
+		LIMIT 1
+	""")
+	latest_msg = c.fetchone()
+	return latest_msg

@@ -90,20 +90,21 @@ def game():
         code = request.form["code"]
         if code == "": #if no code is entered, assume user is creating a game
             code = db.create_game(session["user"])
-            return render_template("game.html", code=code)
+            return render_template("game.html", code=code, username=session["user"])
         else:
             joined = db.join_game(code, session["user"])
             if joined:
-                return render_template("game.html", code=code)
+                return render_template("game.html", code=code, username=session["user"])
             else:
                 return render_template("lobby.html", explain="Game is full or doesn't exist")
+
 
 @app.route("/chatbox", methods=['GET', 'POST'])
 def chatbox():
     print(request.method)
     if request.method == "POST":
-        msg = request.get_json()
-        print(msg)
+        msg = request.get_json()['usermsg']
+        db.add_message(session["user"], msg)
         return msg
 
 if __name__ == "__main__":
