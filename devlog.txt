@@ -50,3 +50,6 @@ Changes games and rooms data tables to organize player stuff
 
 michelleL -- 2022-06-09 11:40
 Sending info from game.js to python successful (chatbox)
+
+rachelX -- 2022-06-08 12:39
+Merged rooms and games data tables
