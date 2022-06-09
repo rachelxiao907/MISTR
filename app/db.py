@@ -19,15 +19,9 @@ cur.execute("""
 	  answers TEXT)""")
 
 cur.execute("""
-	CREATE TABLE IF NOT EXISTS rooms(
+	CREATE TABLE IF NOT EXISTS games(
 	  id INTEGER PRIMARY KEY,
 	  players INTEGER,
-	  player1 TEXT,
-	  player2 TEXT)""")
-
-cur.execute("""
-	CREATE TABLE IF NOT EXISTS games(
-	  id INTEGER,
 	  player1 TEXT,
 	  player2 TEXT)""")
 
@@ -108,13 +102,13 @@ def create_game(username):
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO rooms(players, player1, player2) VALUES(?, ?, ?)""",(1, username, ""))
+	c.execute("""INSERT INTO games(players, player1, player2) VALUES(?, ?, ?)""",(1, username, ""))
 	c.execute("""
-        SELECT id
-        FROM rooms
-        ORDER BY id DESC
-        LIMIT 1
-    """)
+		SELECT id
+		FROM games
+		ORDER BY id DESC
+		LIMIT 1
+	""")
 	code = c.fetchone()
 
 	db.commit()
@@ -129,7 +123,7 @@ def join_game(game_id, username):
 
 	c.execute("""
 		SELECT players
-		FROM   rooms
+		FROM   games
 		WHERE  id = ?
 	""", (game_id))
 
@@ -138,10 +132,8 @@ def join_game(game_id, username):
 	if players == 2 or players == None:
 		return False
 
-	c.execute("""UPDATE rooms SET player2 = ? WHERE id = ?""",(username, game_id))
-
-	# Create a game when there are enough players for a game
-	#c.execute("""INSERT INTO games(id, mysteries) VALUES(?, ?)""",(game_id, ))
+	c.execute("""UPDATE games SET player2 = ? WHERE id = ?""",(username, game_id))
+	c.execute("""UPDATE games SET players = ? WHERE id = ?""",(2, game_id))
 
 	db.commit()
 	db.close()

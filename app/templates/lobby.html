@@ -33,11 +33,12 @@
         <h2 class="text-primary mb-4"><strong>Create or Join a Game</strong></h2>
 
         <div class="input-group">
-            <form method="POST" action="/lobby">
+            <form method="POST" action="/game">
                 <input name="create" type="submit" value="Create Game" class="btn btn-secondary"></input>
                 <br><br><br>
                 <input style="width: 300px;" type="text" name="code" placeholder="Code" class="form-control mb-3"/>
                 <input name="join" type="submit" value="Join Game" class="btn btn-secondary"></input>
+                <h2 class="text-danger mb-4">{{ explain }}</h2>
             </form>
           </div>
     </section>
