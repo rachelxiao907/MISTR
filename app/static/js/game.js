@@ -162,8 +162,18 @@ $(function() {
 
 function update_chat(data) {
   var chatbox = document.getElementById("container");
-  console.log("chat:" + data);
+  // console.log("chat:" + data);
   chatbox.innerHTML = data;
+}
+
+function get_chatData(){
+  console.log("work?");
+  $.getJSON('/updating_chat', function(data) { //receive data from python!
+  })
+  .done(function(data){ //do this once you get dat
+    update_chat(data["chat"]);
+  });
+  return false;
 }
 
 
@@ -171,3 +181,5 @@ setup();
 flip();
 select_btn();
 selectmode_btn();
+
+setInterval(get_chatData, 1000); //every 1 second

@@ -112,6 +112,15 @@ def chatbox():
         db.add_message(session["user"], msg)
         return db.fetch_latest_chat()
 
+@app.route("/updating_chat", methods=['GET', 'POST'])
+def updating_chat():
+    print("hellooooooooo")
+    latest_chat = db.fetch_latest_chat()
+    json = jsonify({
+        "chat": latest_chat
+    })
+    return json
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

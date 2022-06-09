@@ -59,3 +59,6 @@ Temporary chat implemented
 
 michelleL -- 2022-06-09 16:19
 Chat fully implemented
+
+michelleL -- 2022-06-09 17:52
+Chat now updates whenever database is updated (yay!)
