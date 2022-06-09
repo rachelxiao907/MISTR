@@ -22,7 +22,8 @@ cur.execute("""
 	CREATE TABLE IF NOT EXISTS chatbox(
 	  id INTEGER PRIMARY KEY,
 	  username TEXT,
-	  message TEXT)""")
+	  message TEXT,
+	  chat TEXT)""")
 
 cur.execute("""
 	CREATE TABLE IF NOT EXISTS games(
@@ -145,24 +146,42 @@ def join_game(game_id, username):
 	db.close()
 	return True
 
+def chatbox_exists():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    c.execute("SELECT count(id) FROM chatbox WHERE id='1'")
+    if (c.fetchone()[0] == 1):
+        print("table exists")
+        return True
+    else:
+        print("table does NOT exist")
+        return False
+
 def add_message(username, message):
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO chatbox(username, message) VALUES(?, ?)""",(username, message))
+	message = username + ": " + message
+
+	chat = str(fetch_latest_chat()) + message + "<br>"
+
+	c.execute("""INSERT INTO chatbox(username, message, chat) VALUES(?, ?, ?)""",(username, message, chat))
 	db.commit()
 	db.close()
 	return True
 
-def latest_messagedata():
+def fetch_latest_chat():
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
-
-	c.execute("""
-		SELECT id
-		FROM chatbox
-		ORDER BY id DESC
-		LIMIT 1
-	""")
-	latest_msg = c.fetchone()
-	return latest_msg
+	if chatbox_exists():
+		c.execute("""
+			SELECT chat
+			FROM chatbox
+			ORDER BY id DESC
+			LIMIT 1
+		""")
+		latest_chat = c.fetchone()[0]
+		return latest_chat
+	else:
+		return ""

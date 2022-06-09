@@ -56,3 +56,6 @@ Merged rooms and games data tables
 
 michelleL -- 2022-06-09 14:54
 Temporary chat implemented
+
+michelleL -- 2022-06-09 16:19
+Chat fully implemented

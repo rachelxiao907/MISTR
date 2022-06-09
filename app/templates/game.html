@@ -10,9 +10,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" type="text/css" href="static/css/game.css"/>
-    <script type="text/javascript">
-      var username = {{ username|tojson }}
-    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,7 +46,6 @@
           <button id="select">Select Confirm</button>
           <h1>chatbox</h1>
           <div id="container">
-
           </div>
           <input id="usermsg" type="text" placeholder="Enter your message here"/>
           <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
@@ -62,5 +58,10 @@
     </div>
 
   </body>
+  <script type="text/javascript">
+    var chat = {{ latest_chat|tojson }};
+    var chatbox = document.getElementById("container");
+    chatbox.innerHTML = chat;
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../static/js/game.js"></script>
