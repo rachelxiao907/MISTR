@@ -85,8 +85,6 @@ def register():
 @app.route("/game", methods=['GET', 'POST'])
 def game():
     # latest_chat = db.fetch_latest_chat().replace('<br>', '\r\n')
-    latest_chat = db.fetch_latest_chat()
-    print("latest chat from game: " + latest_chat)
     if request.method == "GET":
         return render_template("lobby.html")
     elif request.method == "POST":
@@ -95,10 +93,16 @@ def game():
         # print("latest chat from game: " + latest_chat)
         if code == "": #if no code is entered, assume user is creating a game
             code = db.create_game(session["user"])
+            session["game_id"] = code
+            latest_chat = db.fetch_latest_chat(session["game_id"])
+            print("latest chat from game: " + latest_chat)
             return render_template("game.html", code=code, latest_chat=latest_chat)
         else:
+            session["game_id"] = code
             joined = db.join_game(code, session["user"])
             if joined:
+                latest_chat = db.fetch_latest_chat(session["game_id"])
+                print("latest chat from game: " + latest_chat)
                 return render_template("game.html", code=code, latest_chat=latest_chat)
             else:
                 return render_template("lobby.html", explain="Game is full or doesn't exist")
@@ -109,16 +113,18 @@ def chatbox():
     print(request.method)
     if request.method == "POST":
         msg = request.get_json()['usermsg']
-        db.add_message(session["user"], msg)
+        db.add_message(session["game_id"], session["user"], msg)
         return db.fetch_latest_chat()
+
 
 @app.route("/updating_chat", methods=['GET', 'POST'])
 def updating_chat():
-    latest_chat = db.fetch_latest_chat()
+    latest_chat = db.fetch_latest_chat(session["game_id"])
     json = jsonify({
         "chat": latest_chat
     })
     return json
+
 
 if __name__ == "__main__":
     app.debug = True
