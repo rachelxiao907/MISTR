@@ -40,3 +40,13 @@ td {
 .selected > p {
   color: white;
 }
+
+#container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid;
+}
+
+#usermsg {
+  width: 420px;
+}
