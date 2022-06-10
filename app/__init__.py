@@ -158,6 +158,16 @@ def select_process():
     })
     return json
 
+@app.route("/win", methods=['GET', 'POST'])
+def win():
+    if request.method == "POST":
+        print("does this work??")
+        is_win = request.get_json()['win']
+        if (is_win):
+            return render_template("login.html")
+        else:
+            return render_template("register.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

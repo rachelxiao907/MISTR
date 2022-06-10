@@ -133,10 +133,6 @@ function firstClick() {
 }
 
 console.log(click);
-// if (click > 0) {
-//   console.log(click);
-//   firstClick();
-// }
 
 //function for toggle select
 function toggle_select() {
@@ -146,9 +142,12 @@ function toggle_select() {
     selectmode_btn.innerText = "Select Mode ON";
   } else {
     select_mode = false;
-    selected_cell = undefined;
-    selected_cell.className = "show";
+    if (selected_cell != undefined){
+      selected_cell.className = "show";
+      selected_cell = undefined;
+    }
     selectmode_btn.innerText = "Select Mode OFF";
+
   }
   console.log("select_mode: " + select_mode);
 }
@@ -168,6 +167,9 @@ function select() {
       if (select_mode == true) {
         select_mode = false;
         var selectmode_btn = document.getElementById("select_mode");
+        if (selected_cell != undefined){
+          selected_cell = undefined;
+        }
         selectmode_btn.innerText = "Select Mode OFF";
 
       }
@@ -229,14 +231,25 @@ $(function() {
     .done(function(data){
       select();
       console.log("winner char: " + data["chosen"]);
-      // select_mode = false;
       var win_char = data["chosen"];
       if (win_char == confirmed_select.innerText) {
         console.log("asdfsfsfasdfs. YOU WIN");
+        win_alert();
       }
     });
   });
 })
+
+function win_alert() {
+  $.ajax({
+    url : '/win',
+    type : 'POST',
+    contentType: "application/json",
+    data : JSON.stringify({
+      "win" : true
+    })
+  })
+}
 
 function update_chat(data) {
   var chatbox = document.getElementById("container");
@@ -256,7 +269,6 @@ function get_chatData(){
 
 setup();
 flip();
-// select_btn();
 selectmode_btn();
 
 setInterval(get_chatData, 20000); //every 1 second
