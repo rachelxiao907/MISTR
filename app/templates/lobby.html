@@ -37,7 +37,7 @@
       <div class="d-flex flex-row flex-around justify-content-evenly align-items-center flex-column flex-lg-row flex-grow-0">
       <div class="p-2 p-lg-5">
         <h2 class="text-primary mb-4"><strong>Create or Join a Game</strong></h2>
-
+        <h5 align="center">Create a new game or join a game using a code.</h5> <br>
         <div class="input-group">
             <form method="POST" action="/game">
                 <input name="create" type="submit" value="Create Game" class="btn btn-secondary"></input>
@@ -46,7 +46,8 @@
                 <input name="join" type="submit" value="Join Game" class="btn btn-secondary"></input>
                 <h2 class="text-danger mb-4">{{ explain }}</h2>
             </form>
-          </div>
+        </div>
+        <p align="center"><a href="/about">Learn how to play.</a></p>
     </section>
   </body>
 </html>

@@ -287,10 +287,10 @@ def chatbox_exists(game_id):
 
     c.execute("SELECT count(id) FROM chatbox"+str(game_id)+" WHERE id='1'")
     if (c.fetchone()[0] == 1):
-        print("table exists")
+        # print("table exists")
         return True
     else:
-        print("table does NOT exist")
+        # print("table does NOT exist")
         return False
 
 

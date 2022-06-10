@@ -51,8 +51,6 @@ for (var i = 0; i < board.length; i++) {
   }
 }
 
-opp_mystery = Math.floor(Math.random() * 24); //opponent's mystery person
-user_mystery = Math.floor(Math.random() * 24); //user's mystery person
 
 var select_mode;
 //setting up the board
@@ -160,7 +158,7 @@ var confirmed_select;
 //function for select confirm button
 function select() {
   if (select_mode){
-    is_confirmed = confirm("Select this character? Selecting a character will pass your turn.\n " + selected_cell.innerText);
+    is_confirmed = confirm("Select this character?\n " + selected_cell.innerText);
     if (is_confirmed) {
       confirmed_select = selected_cell;
       //do smth about confirmed_select

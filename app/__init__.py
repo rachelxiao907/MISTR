@@ -139,7 +139,7 @@ def updating_chat():
 
 @app.route("/turn_process", methods=['GET', 'POST'])
 def update_turn():
-    print("turn processing")
+    # print("turn processing")
     db.update_turn(session["game_id"])
     print("turn: " + db.fetch_turn(session["game_id"]))
     # json = jsonify({
@@ -195,7 +195,7 @@ def win():
 
 @app.route("/iswin_process", methods=['GET', 'POST'])
 def iswin():
-    print("iswin processing")
+    # print("iswin processing")
     json = jsonify({
         "winner": db.fetch_winner(session["game_id"]),
         "username": session['user']
