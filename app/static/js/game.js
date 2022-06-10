@@ -91,6 +91,7 @@ function flip() {
           click++;
           char_name = nameString(pics[cell.id]);
           console.log(char_name);
+          firstClick();
         } else {
           if (cell.className == "show") {
             cell.className = "flipped";
@@ -130,10 +131,10 @@ function firstClick() {
 }
 
 console.log(click);
-if (click > 0) {
-  console.log(click);
-  firstClick();
-}
+// if (click > 0) {
+//   console.log(click);
+//   firstClick();
+// }
 
 //function for toggle select
 function toggle_select() {
