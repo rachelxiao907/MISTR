@@ -43,9 +43,11 @@
         <div class="col">
           <h1 style="color: blue;">Game Code: {{ code }}</h1>
           <h3 style="color: blue;">Turn: {{ turn }}</h3>
-          <button id="select_mode">Select Mode OFF</button>
-          <button id="select">Select Confirm</button>
-          <h1>chatbox</h1>
+          {% if turn == user %}
+            <button id="select_mode">Select Mode OFF</button>
+            <button id="select">Select Confirm</button>
+          {% endif %}
+          <h1>Chatbox</h1>
           <div id="container">
           </div>
           <input id="usermsg" type="text" placeholder="Enter your message here"/>
