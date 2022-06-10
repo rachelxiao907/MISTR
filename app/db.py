@@ -229,10 +229,15 @@ def update_turn(game_id):
 
 	print("player1: " + player1 + " player2: " + player2)
 	print(fetch_turn(game_id) == player1)
+	new_turn = ""
 	if (fetch_turn(game_id) == player1):
-		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player2, game_id))
+		new_turn = player2
 	else:
-		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player1, game_id))
+		new_turn = player1
+
+	c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(new_turn, game_id,))
+	db.commit()
+	db.close()
 
 	return True
 
