@@ -119,6 +119,8 @@ function flip() {
   })
 }
 
+console.log(click);
+
 function firstClick() {
   $.ajax({
     url : '/firstclick',
