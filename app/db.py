@@ -142,6 +142,47 @@ def fetch_turn(game_id):
 	db.close()
 	return turn
 
+def fetch_otherchosen(username, game_id):
+	db = sqlite3.connect(DB_FILE, check_same_thread=False)
+	c = db.cursor()
+
+	c.execute("""
+		SELECT chosen1
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+	chosen1 = c.fetchone()[0]
+
+	c.execute("""
+		SELECT player1
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+	player1 = c.fetchone()[0]
+
+	c.execute("""
+		SELECT chosen2
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+	chosen2 = c.fetchone()[0]
+
+	c.execute("""
+		SELECT player2
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+	player2 = c.fetchone()[0]
+
+	db.commit()
+	db.close()
+
+	if (username == player1):
+		return chosen2
+	elif (username == player2):
+		return chosen1
+
+
 def update_turn(game_id):
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()

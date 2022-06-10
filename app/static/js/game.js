@@ -209,7 +209,7 @@ $(function() {
 $(function() {
   $('#end_turn').bind('click', function() {
     $.getJSON('/turn_process', function(data) { //receive data from python!
-      
+
     })
 
     .done(function(data){
@@ -218,6 +218,16 @@ $(function() {
   });
 })
 
+$(function() {
+  $('#select').bind('click', function() {
+    $.getJSON('/select_process', function(data) { //receive data from python!
+
+    })
+    .done(function(data){
+      console.log("asdfasd: " + data["chosen"]);
+    });
+  });
+})
 
 
 

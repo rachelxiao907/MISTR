@@ -138,6 +138,15 @@ def firstClick():
 		db.choose_character(session["game_id"], session["user"], char_name)
 		return ""
 
+@app.route("/select_process", methods=['GET', 'POST'])
+def select_process():
+    print("asfdsasdf")
+    chosen = db.fetch_otherchosen(session["user"], session["game_id"])
+    json = jsonify({
+        "chosen": chosen
+    })
+    return json
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
