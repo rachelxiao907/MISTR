@@ -37,6 +37,9 @@ db.close()
 #####################
 
 
+#############
+# User Data #
+#############
 def register_user(username, password):
 	"""
 	Tries to add the given username and password into the database.
@@ -100,6 +103,9 @@ def fetch_username(user_id):
 	return username
 
 
+##############
+# Game Setup #
+##############
 def create_game(username):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
@@ -125,7 +131,34 @@ def create_game(username):
 	db.close()
 	return code
 
+def join_game(game_id, username):
+	db = sqlite3.connect(DB_FILE)
+	db.row_factory = lambda curr, row: row[0]
+	c = db.cursor()
 
+	c.execute("""
+		SELECT players
+		FROM   games
+		WHERE  id = ?
+	""", (game_id,))
+
+	# players = c.fetchone()[0]
+	players = c.fetchone()
+
+	if players == 2 or players == None:
+		return False
+
+	c.execute("""UPDATE games SET player2 = ? WHERE id = ?""",(username, game_id))
+	c.execute("""UPDATE games SET players = ? WHERE id = ?""",(2, game_id))
+
+	db.commit()
+	db.close()
+	return True
+
+
+#########
+# Turns #
+#########
 def fetch_turn(game_id):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
@@ -143,6 +176,39 @@ def fetch_turn(game_id):
 	return turn
 
 
+def update_turn(game_id):
+	db = sqlite3.connect(DB_FILE)
+	c = db.cursor()
+
+	c.execute("""
+		SELECT player1
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+
+	player1 = c.fetchone()[0]
+
+	c.execute("""
+		SELECT player2
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+
+	player2 = c.fetchone()[0]
+
+	print("player1: " + player1 + " player2: " + player2)
+	print(fetch_turn(game_id) == player1)
+	if (fetch_turn(game_id) == player1):
+		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player2, game_id))
+	else:
+		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player1, game_id))
+
+	return True
+
+
+#################
+# Win Procedure #
+#################
 def fetch_otherchosen(username, game_id):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
@@ -183,6 +249,7 @@ def fetch_otherchosen(username, game_id):
 	elif (username == player2):
 		return chosen1
 
+
 def update_win(username, game_id):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
@@ -192,6 +259,7 @@ def update_win(username, game_id):
 	db.commit()
 	db.close()
 	return True
+
 
 def fetch_winner(game_id):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
@@ -207,59 +275,6 @@ def fetch_winner(game_id):
 	db.close()
 	return winner
 
-def update_turn(game_id):
-	db = sqlite3.connect(DB_FILE)
-	c = db.cursor()
-
-	c.execute("""
-		SELECT player1
-		FROM games
-		WHERE id = ?
-	""", (game_id,))
-
-	player1 = c.fetchone()[0]
-
-	c.execute("""
-		SELECT player2
-		FROM games
-		WHERE id = ?
-	""", (game_id,))
-
-	player2 = c.fetchone()[0]
-
-	print("player1: " + player1 + " player2: " + player2)
-	print(fetch_turn(game_id) == player1)
-	if (fetch_turn(game_id) == player1):
-		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player2, game_id))
-	else:
-		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player1, game_id))
-
-	return True
-
-
-def join_game(game_id, username):
-	db = sqlite3.connect(DB_FILE)
-	db.row_factory = lambda curr, row: row[0]
-	c = db.cursor()
-
-	c.execute("""
-		SELECT players
-		FROM   games
-		WHERE  id = ?
-	""", (game_id,))
-
-	# players = c.fetchone()[0]
-	players = c.fetchone()
-
-	if players == 2 or players == None:
-		return False
-
-	c.execute("""UPDATE games SET player2 = ? WHERE id = ?""",(username, game_id))
-	c.execute("""UPDATE games SET players = ? WHERE id = ?""",(2, game_id))
-
-	db.commit()
-	db.close()
-	return True
 
 
 def chatbox_exists(game_id):
