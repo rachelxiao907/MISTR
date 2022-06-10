@@ -11,7 +11,23 @@ function nameString(str) {
   return name;
 }
 
+function shuffleArray(array) {
+   for (var i = array.length - 1; i > 0; i--) {
+
+       // Generate random number
+       var j = Math.floor(Math.random() * (i + 1));
+
+       var temp = array[i];
+       array[i] = array[j];
+       array[j] = temp;
+   }
+
+   return array;
+}
+
 pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png", "tom.png", "susan.png", "richard.png", "philip.png", "sam.png", "robert.png", "peter.png", "charles.png", "joe.png", "maria.png", "claire.png", "eric.png", "george.png", "herman.png", "bill.png", "frans.png", "anita.png", "alfred.png"];
+pics = shuffleArray(pics);
+
 var names = new Array(pics.length);
 for (var i = 0; i < pics.length; i++) {
   names[i] = nameString(pics[i]);
@@ -48,9 +64,9 @@ function setup() {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
         cell_id = (i * cols + j);
-        if (cell_id == user_mystery) {
-          cell_id = "m"; //m for mystery
-        }
+        // if (cell_id == user_mystery) {
+        //   cell_id = "m"; //m for mystery
+        // }
         if (j < pics.length) {
           html += "<td id=" + cell_id + " class=show> <img src=\"static/img/"+board[i][j].pic+"\" width=\"100\"> <p>" + board[i][j].name + " </p> </td>";
         }
@@ -61,11 +77,11 @@ function setup() {
 }
 
 var selected_cell;
-
+char_name = "";
+var click = 0;
 //clicking a table cell "flips" the card
 function flip() {
   // console.log("select_mode: " + select_mode);
-  var click = 0;
   document.querySelectorAll('td').forEach(cell => {
     cell.addEventListener('click', event => {
       console.log("select_mode: " + select_mode);
@@ -73,6 +89,8 @@ function flip() {
         if (click < 1) {
           cell.className = "chosen";
           click++;
+          char_name = nameString(pics[cell.id]);
+          console.log(char_name);
         } else {
           if (cell.className == "show") {
             cell.className = "flipped";
@@ -99,6 +117,24 @@ function flip() {
     })
   })
 }
+
+function firstClick() {
+  $.ajax({
+    url : '/firstclick',
+    type : 'POST',
+    contentType: "application/json",
+    data : JSON.stringify({
+      "char_name" : char_name
+    }),
+  })
+}
+
+console.log(click);
+if (click > 0) {
+  console.log(click);
+  firstClick();
+}
+
 //function for toggle select
 function toggle_select() {
   var selectmode_btn = document.getElementById("select_mode");
@@ -188,4 +224,4 @@ flip();
 select_btn();
 selectmode_btn();
 
-setInterval(get_chatData, 1000); //every 1 second
+setInterval(get_chatData, 20000); //every 1 second

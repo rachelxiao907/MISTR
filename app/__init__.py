@@ -122,6 +122,12 @@ def updating_chat():
     })
     return json
 
+@app.route("/firstclick", methods=['GET', 'POST'])
+def firstClick():
+	if request.method == "POST":	
+		char_name = request.get_json()['char_name']
+		db.choose_character(session["game_id"], session["user"], char_name)
+		return True
 
 if __name__ == "__main__":
     app.debug = True
