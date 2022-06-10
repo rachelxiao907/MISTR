@@ -15,12 +15,18 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/about">About</a>
+          </li>
           <li class="nav-item active">
             <a class="nav-link" href="/">Login</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="/register">Register</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
       </div>
@@ -42,7 +48,7 @@
 
         <div class="col">
           <h1 style="color: blue;">Game Code: {{ code }}</h1>
-          <h3 style="color: blue;">Turn: {{ turn }}</h3>        
+          <h3 style="color: blue;">Turn: {{ turn }}</h3>
           <button id="select_mode">Select Mode OFF</button>
           <button id="select">Select Confirm</button>
           <button id="end_turn">End Turn</button>
