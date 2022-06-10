@@ -105,7 +105,7 @@ def create_game(username):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO games(players, player1, player2) VALUES(?, ?, ?)""",(1, username, ""))
+	c.execute("""INSERT INTO games(players, player1, player2, turn) VALUES(?, ?, ?, ?)""",(1, username, "", 1))
 	c.execute("""
 		SELECT id
 		FROM games
