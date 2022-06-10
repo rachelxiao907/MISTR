@@ -58,6 +58,7 @@ var select_mode;
 //setting up the board
 function setup() {
   select_mode = false;
+  update_turn();
   var gameboard = document.getElementById("gameboard");
   var html = "";
   for (var i = 0; i < board.length; i++) {
@@ -211,24 +212,37 @@ $(function() {
   });
 })
 
-mode_btn = document.getElementById("select_mode")
-confirm_btn = document.getElementById("select")
+
 $(function() {
   $('#end_turn').bind('click', function() {
     $.getJSON('/turn_process', function(data) { //receive data from python!
 
     })
-    .done(function(data){
-      if (data["turn"] == data["user"]) {
-        mode_btn.style.display = "none";
-        confirm_btn.style.display = "none";
-      } else {
-        mode_btn.style.display = "block";
-        confirm_btn.style.display = "block";
-      }
-    });
+
   });
 })
+
+mode_btn = document.getElementById("select_mode");
+confirm_btn = document.getElementById("select");
+endturn_btn = document.getElementById("end_turn");
+
+function update_turn() {
+  $.getJSON('/updateturn_process', function(data) { //receive data from python!
+  })
+  .done(function(data){ //do this once you get data
+    var turn = document.getElementById("turn");
+    turn.innerText = "Turn: " + data["turn"];
+    if (data["turn"] != data["username"]) {
+      mode_btn.style.visibility = "hidden";
+      confirm_btn.style.visibility = "hidden";
+      end_turn.style.visibility = "hidden";
+    } else {
+      mode_btn.style.visibility = "visible";
+      confirm_btn.style.visibility = "visible";
+      end_turn.style.visibility = "visible";
+    }
+  });
+}
 
 var is_win = false;
 $(function() {
@@ -309,3 +323,4 @@ selectmode_btn();
 
 setInterval(get_chatData, 20000); //every 1 second
 setInterval(is_win_yet, 5000); //every 1 second
+setInterval(update_turn, 5000); //every 1 second

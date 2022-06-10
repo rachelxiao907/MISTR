@@ -139,11 +139,21 @@ def updating_chat():
 
 @app.route("/turn_process", methods=['GET', 'POST'])
 def update_turn():
+    print("turn processing")
     db.update_turn(session["game_id"])
     print("turn: " + db.fetch_turn(session["game_id"]))
+    # json = jsonify({
+    #     "turn": db.fetch_turn(session["game_id"]),
+    #     "user": session["user"]
+    # })
+    return "True"
+
+
+@app.route("/updateturn_process", methods=['GET', 'POST'])
+def updateturn():
     json = jsonify({
         "turn": db.fetch_turn(session["game_id"]),
-        "user": session["user"]
+        "username": session['user']
     })
     return json
 

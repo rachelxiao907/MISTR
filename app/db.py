@@ -202,6 +202,8 @@ def update_turn(game_id):
 		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player2, game_id))
 	else:
 		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player1, game_id))
+	db.commit()
+	db.close()
 
 	return True
 
