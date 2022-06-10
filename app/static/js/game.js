@@ -11,7 +11,23 @@ function nameString(str) {
   return name;
 }
 
+function shuffleArray(array) {
+   for (var i = array.length - 1; i > 0; i--) {
+
+       // Generate random number
+       var j = Math.floor(Math.random() * (i + 1));
+
+       var temp = array[i];
+       array[i] = array[j];
+       array[j] = temp;
+   }
+
+   return array;
+}
+
 pics = ["alex.png", "anne.jpg", "bernard.png", "david.png", "paul.png", "max.png", "tom.png", "susan.png", "richard.png", "philip.png", "sam.png", "robert.png", "peter.png", "charles.png", "joe.png", "maria.png", "claire.png", "eric.png", "george.png", "herman.png", "bill.png", "frans.png", "anita.png", "alfred.png"];
+pics = shuffleArray(pics);
+
 var names = new Array(pics.length);
 for (var i = 0; i < pics.length; i++) {
   names[i] = nameString(pics[i]);
@@ -187,7 +203,6 @@ $(function() {
 
 function update_chat(data) {
   var chatbox = document.getElementById("container");
-  // console.log("chat:" + data);
   chatbox.innerHTML = data;
 }
 
@@ -195,7 +210,7 @@ function get_chatData(){
   console.log("work?");
   $.getJSON('/updating_chat', function(data) { //receive data from python!
   })
-  .done(function(data){ //do this once you get dat
+  .done(function(data){ //do this once you get data
     update_chat(data["chat"]);
   });
   return false;
