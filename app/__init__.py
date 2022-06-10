@@ -141,7 +141,11 @@ def updating_chat():
 def update_turn():
     db.update_turn(session["game_id"])
     print("turn: " + db.fetch_turn(session["game_id"]))
-    return "next turn"
+    json = jsonify({
+        "turn": db.fetch_turn(session["game_id"]),
+        "user": session["user"]
+    })
+    return json
 
 
 @app.route("/firstclick", methods=['GET', 'POST'])
