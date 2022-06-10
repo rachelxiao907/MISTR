@@ -48,9 +48,9 @@ function setup() {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
         cell_id = (i * cols + j);
-        if (cell_id == user_mystery) {
-          cell_id = "m"; //m for mystery
-        }
+        // if (cell_id == user_mystery) {
+        //   cell_id = "m"; //m for mystery
+        // }
         if (j < pics.length) {
           html += "<td id=" + cell_id + " class=show> <img src=\"static/img/"+board[i][j].pic+"\" width=\"100\"> <p>" + board[i][j].name + " </p> </td>";
         }
@@ -61,11 +61,11 @@ function setup() {
 }
 
 var selected_cell;
-
+char_name = "";
+var click = 0;
 //clicking a table cell "flips" the card
 function flip() {
   // console.log("select_mode: " + select_mode);
-  var click = 0;
   document.querySelectorAll('td').forEach(cell => {
     cell.addEventListener('click', event => {
       console.log("select_mode: " + select_mode);
@@ -73,6 +73,8 @@ function flip() {
         if (click < 1) {
           cell.className = "chosen";
           click++;
+          char_name = nameString(pics[cell.id]);
+          console.log(char_name);
         } else {
           if (cell.className == "show") {
             cell.className = "flipped";
@@ -99,6 +101,22 @@ function flip() {
     })
   })
 }
+
+function firstClick() {
+  $.ajax({
+    url : '/firstclick',
+    type : 'POST',
+    contentType: "application/json",
+    data : JSON.stringify({
+      "char_name" : char_name
+    }),
+  })
+}
+
+if (click > 0) {
+  firstClick();
+}
+
 //function for toggle select
 function toggle_select() {
   var selectmode_btn = document.getElementById("select_mode");

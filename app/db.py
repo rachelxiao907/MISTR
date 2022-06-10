@@ -30,7 +30,9 @@ cur.execute("""
 	  id INTEGER PRIMARY KEY,
 	  players INTEGER,
 	  player1 TEXT,
-	  player2 TEXT)""")
+	  player2 TEXT,
+	  chosen1 TEXT,
+	  chosen2 TEXT)""")
 
 db.commit()
 db.close()
@@ -109,7 +111,7 @@ def create_game(username):
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO games(players, player1, player2) VALUES(?, ?, ?)""",(1, username, ""))
+	c.execute("""INSERT INTO games(players, player1, player2, chosen1, chosen2) VALUES(?, ?, ? ,?, ?)""",(1, username, "", "", ""))
 	c.execute("""
 		SELECT id
 		FROM games
@@ -185,3 +187,18 @@ def fetch_latest_chat():
 		return latest_chat
 	else:
 		return ""
+
+def choose_character(game_id, user, name):
+	db = sqlite3.connect(DB_FILE)
+	c = db.cursor()
+	c.execute("""SELECT player1 FROM games WHERE id = ? """, (game_id))
+	player = c.fetchone()
+	if player == user: 
+		c.execute("""UPDATE games SET chosen1 = ? WHERE id = ?""",(name, game_id))
+	else: 
+		c.execute("""UPDATE games SET chosen2 = ? WHERE id = ?""",(name, game_id))
+	
+	
+	db.commit()
+	db.close()
+	return True
