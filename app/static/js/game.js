@@ -118,6 +118,8 @@ function flip() {
   })
 }
 
+console.log(click);
+
 function firstClick() {
   $.ajax({
     url : '/firstclick',
@@ -129,7 +131,7 @@ function firstClick() {
   })
 }
 
-console.log(click);
+// console.log(click);
 if (click > 0) {
   console.log(click);
   firstClick();
