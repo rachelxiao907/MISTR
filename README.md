@@ -1,8 +1,8 @@
 # Guess Who by MISTR
 ## Members
-* Rachel Xiao (PM) - Chatbox with SQL
-* Michelle Lo - Enable user actions with JS
-* Theo Fahey - Websockets
+* Rachel Xiao (PM) - Backend for game
+* Michelle Lo - Chatbox with SQL and AJAX
+* Theo Fahey - Setting up game with JS
 * Sadid E Ethun - Interactive game board with JS
 
 ## Project Description
