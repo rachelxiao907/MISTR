@@ -91,16 +91,18 @@ def game():
         if code == "": #if no code is entered, assume user is creating a game
             code = db.create_game(session["user"])
             session["game_id"] = code
+            turn = db.fetch_turn(session["game_id"])
             latest_chat = db.fetch_latest_chat(session["game_id"])
             print("latest chat from game: " + latest_chat)
-            return render_template("game.html", code=code, latest_chat=latest_chat)
+            return render_template("game.html", code=code, latest_chat=latest_chat, turn=turn, user=session["user"])
         else:
             session["game_id"] = code
+            turn = db.fetch_turn(session["game_id"])
             joined = db.join_game(code, session["user"])
             if joined:
                 latest_chat = db.fetch_latest_chat(session["game_id"])
                 print("latest chat from game: " + latest_chat)
-                return render_template("game.html", code=code, latest_chat=latest_chat)
+                return render_template("game.html", code=code, latest_chat=latest_chat, turn=turn, user=session["user"])
             else:
                 return render_template("lobby.html", explain="Game is full or doesn't exist")
 
@@ -124,7 +126,7 @@ def updating_chat():
 
 @app.route("/firstclick", methods=['GET', 'POST'])
 def firstClick():
-	if request.method == "POST":	
+	if request.method == "POST":
 		char_name = request.get_json()['char_name']
 		db.choose_character(session["game_id"], session["user"], char_name)
 		return ""

@@ -105,7 +105,7 @@ def create_game(username):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO games(players, player1, player2, turn, chosen1, chosen2) VALUES(?, ?, ? ,?, ?), ?""",(1, username, "", username, "", ""))
+	c.execute("""INSERT INTO games(players, player1, player2, turn, chosen1, chosen2) VALUES(?, ?, ? ,?, ?, ?)""",(1, username, "", username, "", ""))
 	c.execute("""
 		SELECT id
 		FROM games
@@ -125,6 +125,23 @@ def create_game(username):
 	db.commit()
 	db.close()
 	return code
+
+def fetch_turn(game_id):
+	db = sqlite3.connect(DB_FILE, check_same_thread=False)
+	c = db.cursor()
+
+	c.execute("""
+		SELECT turn
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+
+	turn = c.fetchone()[0]
+
+	db.commit()
+	db.close()
+	return turn
+
 
 
 def join_game(game_id, username):
