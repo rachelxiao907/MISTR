@@ -167,6 +167,9 @@ function select() {
       selected_cell = undefined;
       if (select_mode == true) {
         select_mode = false;
+        var selectmode_btn = document.getElementById("select_mode");
+        selectmode_btn.innerText = "Select Mode OFF";
+
       }
     }
   }
@@ -178,10 +181,10 @@ function selectmode_btn() {
   selectmode_btn.addEventListener('click', toggle_select);
 }
 
-function select_btn() {
-  select_btn = document.getElementById("select");
-  select_btn.addEventListener('click', select);
-}
+// function select_btn() {
+//   select_btn = document.getElementById("select");
+//   select_btn.addEventListener('click', select);
+// }
 
 chat = "";
 //chatbox
@@ -224,12 +227,16 @@ $(function() {
 
     })
     .done(function(data){
-      console.log("asdfasd: " + data["chosen"]);
+      select();
+      console.log("winner char: " + data["chosen"]);
+      // select_mode = false;
+      var win_char = data["chosen"];
+      if (win_char == confirmed_select.innerText) {
+        console.log("asdfsfsfasdfs. YOU WIN");
+      }
     });
   });
 })
-
-
 
 function update_chat(data) {
   var chatbox = document.getElementById("container");
@@ -249,7 +256,7 @@ function get_chatData(){
 
 setup();
 flip();
-select_btn();
+// select_btn();
 selectmode_btn();
 
 setInterval(get_chatData, 20000); //every 1 second
