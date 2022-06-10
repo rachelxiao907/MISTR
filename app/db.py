@@ -276,7 +276,9 @@ def fetch_winner(game_id):
 	return winner
 
 
-
+###########
+# Chatbox #
+###########
 def chatbox_exists(game_id):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()

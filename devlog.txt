@@ -104,4 +104,7 @@ michelleL -- 2022-06-10 12:38
 Redirected to gameover when win is achieved
 
 michelleL -- 2022-06-10 01:27
-Win works!! 
+Win works!!
+
+michelleL -- 2022-06-10 01:49
+Debugged turn functions
