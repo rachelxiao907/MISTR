@@ -89,9 +89,6 @@ def about():
 
 @app.route("/logout")
 def logout():
-	"""
-	Removes user from session.
-	"""
 	if logged_in():
 		session.pop("user")
 		session.pop("user_id")
@@ -125,7 +122,6 @@ def game():
 
 @app.route("/chatbox", methods=['GET', 'POST'])
 def chatbox():
-    print(request.method)
     if request.method == "POST":
         msg = request.get_json()['usermsg']
         db.add_message(session["game_id"], session["user"], msg)
@@ -140,11 +136,16 @@ def updating_chat():
     })
     return json
 
+
 @app.route("/turn_process", methods=['GET', 'POST'])
 def update_turn():
     db.update_turn(session["game_id"])
     print("turn: " + db.fetch_turn(session["game_id"]))
-    return "true"
+    json = jsonify({
+        "turn": db.fetch_turn(session["game_id"]),
+        "user": session["user"]
+    })
+    return json
 
 
 @app.route("/firstclick", methods=['GET', 'POST'])
@@ -152,16 +153,17 @@ def firstClick():
 	if request.method == "POST":
 		char_name = request.get_json()['char_name']
 		db.choose_character(session["game_id"], session["user"], char_name)
-		return ""
+		return "chosen"
+
 
 @app.route("/select_process", methods=['GET', 'POST'])
 def select_process():
-    print("asfdsasdf")
     chosen = db.fetch_otherchosen(session["user"], session["game_id"])
     json = jsonify({
         "chosen": chosen
     })
     return json
+
 
 @app.route("/win", methods=['GET', 'POST'])
 def win():
@@ -180,6 +182,7 @@ def win():
             return redirect("/gameover")
     return render_template("gameover.html")
 
+
 @app.route("/iswin_process", methods=['GET', 'POST'])
 def iswin():
     print("iswin processing")
@@ -189,10 +192,12 @@ def iswin():
     })
     return json
 
+
 @app.route("/gameover", methods=['GET', 'POST'])
 def gameover():
     winner = db.fetch_winner(session["game_id"]);
     return render_template("gameover.html", winner=winner);
+
 
 if __name__ == "__main__":
     app.debug = True

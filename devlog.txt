@@ -108,3 +108,6 @@ Win works!!
 
 michelleL -- 2022-06-10 01:49
 Debugged turn functions
+
+rachelX -- 2022-06-10 02:07
+Working on player turns

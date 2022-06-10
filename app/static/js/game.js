@@ -211,14 +211,21 @@ $(function() {
   });
 })
 
+mode_btn = document.getElementById("select_mode")
+confirm_btn = document.getElementById("select")
 $(function() {
   $('#end_turn').bind('click', function() {
     $.getJSON('/turn_process', function(data) { //receive data from python!
 
     })
-
     .done(function(data){
-
+      if (data["turn"] == data["user"]) {
+        mode_btn.style.display = "none";
+        confirm_btn.style.display = "none";
+      } else {
+        mode_btn.style.display = "block";
+        confirm_btn.style.display = "block";
+      }
     });
   });
 })
