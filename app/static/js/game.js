@@ -129,7 +129,9 @@ function firstClick() {
   })
 }
 
+console.log(click);
 if (click > 0) {
+  console.log(click);
   firstClick();
 }
 
@@ -222,4 +224,4 @@ flip();
 select_btn();
 selectmode_btn();
 
-setInterval(get_chatData, 1000); //every 1 second
+setInterval(get_chatData, 20000); //every 1 second
