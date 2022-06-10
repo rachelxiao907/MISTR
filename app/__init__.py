@@ -84,7 +84,6 @@ def register():
 
 @app.route("/game", methods=['GET', 'POST'])
 def game():
-    # latest_chat = db.fetch_latest_chat().replace('<br>', '\r\n')
     if request.method == "GET":
         return render_template("lobby.html")
     elif request.method == "POST":

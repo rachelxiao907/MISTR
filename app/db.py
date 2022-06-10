@@ -202,10 +202,10 @@ def choose_character(game_id, user, name):
 	player = c.fetchone()[0]
 	if player == user: 
 		c.execute("""UPDATE games SET chosen1 = ? WHERE id = ?""",(name, game_id))
-	else: 
+	else:
 		c.execute("""UPDATE games SET chosen2 = ? WHERE id = ?""",(name, game_id))
-	
-	
+
+
 	db.commit()
 	db.close()
 	return True
