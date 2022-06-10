@@ -34,9 +34,7 @@
         <div class="p-2 p-lg-5">
           <h2 class="text-primary mb-4"><strong>Register</strong></h2>
           <div>
-            {% if error_message %}
-            <p style="color: red">{{ error_message }}</p>
-            {% endif %}
+            <p style="color: red">{{ explain }}</p>
             <form method="post" action="/register">
               <input
                 style="width: 300px"

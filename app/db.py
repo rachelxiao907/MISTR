@@ -105,7 +105,7 @@ def create_game(username):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
 
-	c.execute("""INSERT INTO games(players, player1, player2, chosen1, chosen2) VALUES(?, ?, ? ,?, ?)""",(1, username, "", "", ""))
+	c.execute("""INSERT INTO games(players, player1, player2, turn, chosen1, chosen2) VALUES(?, ?, ? ,?, ?), ?""",(1, username, "", username, "", ""))
 	c.execute("""
 		SELECT id
 		FROM games
@@ -200,7 +200,7 @@ def choose_character(game_id, user, name):
 	c = db.cursor()
 	c.execute("""SELECT player1 FROM games WHERE id = ? """, (game_id,))
 	player = c.fetchone()[0]
-	if player == user: 
+	if player == user:
 		c.execute("""UPDATE games SET chosen1 = ? WHERE id = ?""",(name, game_id))
 	else:
 		c.execute("""UPDATE games SET chosen2 = ? WHERE id = ?""",(name, game_id))
