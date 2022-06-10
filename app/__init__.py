@@ -89,8 +89,6 @@ def game():
         return render_template("lobby.html")
     elif request.method == "POST":
         code = request.form["code"]
-        # latest_chat = db.fetch_latest_chat()
-        # print("latest chat from game: " + latest_chat)
         if code == "": #if no code is entered, assume user is creating a game
             code = db.create_game(session["user"])
             session["game_id"] = code
@@ -114,7 +112,7 @@ def chatbox():
     if request.method == "POST":
         msg = request.get_json()['usermsg']
         db.add_message(session["game_id"], session["user"], msg)
-        return db.fetch_latest_chat()
+        return db.fetch_latest_chat(session["game_id"])
 
 
 @app.route("/updating_chat", methods=['GET', 'POST'])

@@ -102,7 +102,7 @@ def fetch_username(user_id):
 
 
 def create_game(username):
-	db = sqlite3.connect(DB_FILE)
+	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
 
 	c.execute("""INSERT INTO games(players, player1, player2) VALUES(?, ?, ?)""",(1, username, ""))
@@ -115,8 +115,8 @@ def create_game(username):
 	code = c.fetchone()[0]
 
 	# Create a new chatbox for each game
-	cur.execute("""
-		CREATE TABLE IF NOT EXISTS """+"chatbox"+str(code)+"""(
+	c.execute("""
+		CREATE TABLE IF NOT EXISTS chatbox"""+str(code)+"""(
 		  id INTEGER PRIMARY KEY,
 		  username TEXT,
 		  message TEXT,
@@ -125,7 +125,7 @@ def create_game(username):
 	db.commit()
 	db.close()
 	return code
-	
+
 
 def join_game(game_id, username):
 	db = sqlite3.connect(DB_FILE)
@@ -138,7 +138,8 @@ def join_game(game_id, username):
 		WHERE  id = ?
 	""", (game_id))
 
-	players = c.fetchone()[0]
+	# players = c.fetchone()[0]
+	players = c.fetchone()
 
 	if players == 2 or players == None:
 		return False
@@ -155,7 +156,7 @@ def chatbox_exists(game_id):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute("SELECT count(id) FROM "+"chatbox"+game_id+"WHERE id='1'")
+    c.execute("SELECT count(id) FROM chatbox"+str(game_id)+" WHERE id='1'")
     if (c.fetchone()[0] == 1):
         print("table exists")
         return True
@@ -170,9 +171,9 @@ def add_message(game_id, username, message):
 
 	message = username + ": " + message
 
-	chat = str(fetch_latest_chat()) + message + "<br>"
+	chat = str(fetch_latest_chat(game_id)) + message + "<br>"
 
-	c.execute("INSERT INTO "+"chatbox"+game_id+"(username, message, chat) VALUES(?, ?, ?)",(username, message, chat))
+	c.execute("INSERT INTO chatbox"+str(game_id)+"(username, message, chat) VALUES(?, ?, ?)",(username, message, chat))
 	db.commit()
 	db.close()
 	return True
@@ -184,7 +185,7 @@ def fetch_latest_chat(game_id):
 	if chatbox_exists(game_id):
 		c.execute("""
 			SELECT chat
-			FROM """+"chatbox"+game_id+"""
+			FROM chatbox"""+str(game_id)+"""
 			ORDER BY id DESC
 			LIMIT 1
 		""")
