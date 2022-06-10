@@ -221,7 +221,7 @@ def join_game(game_id, username):
 		SELECT players
 		FROM   games
 		WHERE  id = ?
-	""", (game_id))
+	""", (game_id,))
 
 	# players = c.fetchone()[0]
 	players = c.fetchone()
@@ -278,6 +278,7 @@ def fetch_latest_chat(game_id):
 		return latest_chat
 	else:
 		return ""
+
 
 def choose_character(game_id, user, name):
 	print("success");
