@@ -26,7 +26,8 @@ cur.execute("""
 	  player2 TEXT,
 	  turn TEXT,
 	  chosen1 TEXT,
-	  chosen2 TEXT)""")
+	  chosen2 TEXT,
+	  winner TEXT)""")
 
 db.commit()
 db.close()
