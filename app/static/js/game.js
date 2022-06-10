@@ -242,6 +242,14 @@ $(function() {
   });
 })
 
+function gameover_redirect() {
+  var site_location = window.location.toString();
+  var len = site_location.length - 4;
+  var new_location = site_location.substring(0,len) + "gameover"
+  console.log("location: " + new_location);
+  window.location.replace(new_location);
+}
+
 function win_alert() {
   $.ajax({
     url : '/win',
@@ -251,13 +259,8 @@ function win_alert() {
       "win" : true
     })
   })
-  var site_location = window.location.toString();
-  var len = site_location.length - 4;
-  var new_location = site_location.substring(0,len) + "gameover"
-  console.log("location: " + new_location);
-  window.location.replace(new_location);
+  gameover_redirect();
 }
-
 
 
 function update_chat(data) {
@@ -275,11 +278,27 @@ function get_chatData(){
   return false;
 }
 
+function is_win_yet(){
+  $.getJSON('/iswin_process', function(data) { //receive data from python!
+
+  })
+  .done(function(data){
+    console.log(data["winner"]);
+    winner = data["winner"];
+    username = data["username"];
+    if (winner != username && winner != null) {
+      console.log("nah, you lost mate");
+      gameover_redirect();
+    }
+  })
+}
+
+
+
 
 setup();
 flip();
 selectmode_btn();
 
-if (! is_win) {
-  setInterval(get_chatData, 20000); //every 1 second
-}
+setInterval(get_chatData, 20000); //every 1 second
+setInterval(is_win_yet, 5000); //every 1 second

@@ -165,9 +165,12 @@ def select_process():
 
 @app.route("/win", methods=['GET', 'POST'])
 def win():
+    db.update_win(session['user'], session['game_id'])
+    print("winner: " + db.fetch_winner(session["game_id"]))
     if request.method == "POST":
         print("does this work??")
         is_win = request.get_json()['win']
+
         print("is_win: " + str(is_win))
         if (is_win):
             print("stuff happens here??")
@@ -177,9 +180,19 @@ def win():
             return redirect("/gameover")
     return render_template("gameover.html")
 
+@app.route("/iswin_process", methods=['GET', 'POST'])
+def iswin():
+    print("iswin processing")
+    json = jsonify({
+        "winner": db.fetch_winner(session["game_id"]),
+        "username": session['user']
+    })
+    return json
+
 @app.route("/gameover", methods=['GET', 'POST'])
 def gameover():
-    return render_template("gameover.html")
+    winner = db.fetch_winner(session["game_id"]);
+    return render_template("gameover.html", winner=winner);
 
 if __name__ == "__main__":
     app.debug = True

@@ -183,6 +183,29 @@ def fetch_otherchosen(username, game_id):
 	elif (username == player2):
 		return chosen1
 
+def update_win(username, game_id):
+	db = sqlite3.connect(DB_FILE, check_same_thread=False)
+	c = db.cursor()
+
+	c.execute("""UPDATE games SET winner = ? WHERE id = ?""",(username, game_id))
+
+	db.commit()
+	db.close()
+	return True
+
+def fetch_winner(game_id):
+	db = sqlite3.connect(DB_FILE, check_same_thread=False)
+	c = db.cursor()
+
+	c.execute("""
+		SELECT winner
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+	winner = c.fetchone()[0]
+	db.commit()
+	db.close()
+	return winner
 
 def update_turn(game_id):
 	db = sqlite3.connect(DB_FILE)
