@@ -223,6 +223,7 @@ $(function() {
   });
 })
 
+var is_win = false;
 $(function() {
   $('#select').bind('click', function() {
     $.getJSON('/select_process', function(data) { //receive data from python!
@@ -234,6 +235,7 @@ $(function() {
       var win_char = data["chosen"];
       if (win_char == confirmed_select.innerText) {
         console.log("asdfsfsfasdfs. YOU WIN");
+        is_win = true;
         win_alert();
       }
     });
@@ -249,7 +251,14 @@ function win_alert() {
       "win" : true
     })
   })
+  var site_location = window.location.toString();
+  var len = site_location.length - 4;
+  var new_location = site_location.substring(0,len) + "gameover"
+  console.log("location: " + new_location);
+  window.location.replace(new_location);
 }
+
+
 
 function update_chat(data) {
   var chatbox = document.getElementById("container");
@@ -271,4 +280,6 @@ setup();
 flip();
 selectmode_btn();
 
-setInterval(get_chatData, 20000); //every 1 second
+if (! is_win) {
+  setInterval(get_chatData, 20000); //every 1 second
+}

@@ -152,10 +152,18 @@ def win():
     if request.method == "POST":
         print("does this work??")
         is_win = request.get_json()['win']
+        print("is_win: " + str(is_win))
         if (is_win):
-            return render_template("login.html")
+            print("stuff happens here??")
+            return redirect("/gameover")
         else:
-            return render_template("register.html")
+            print("or here??")
+            return redirect("/gameover")
+    return render_template("gameover.html")
+
+@app.route("/gameover", methods=['GET', 'POST'])
+def gameover():
+    return render_template("gameover.html")
 
 if __name__ == "__main__":
     app.debug = True

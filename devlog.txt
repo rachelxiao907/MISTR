@@ -80,3 +80,6 @@ WIN WORKS (JS side)
 
 michelleL -- 2022-06-10 00:01
 Select mode debugged, win... WIP
+
+michelleL -- 2022-06-10 12:38
+Redirected to gameover when win is achieved
