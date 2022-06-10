@@ -198,9 +198,9 @@ def choose_character(game_id, user, name):
 	print("success");
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
-	c.execute("""SELECT player1 FROM games WHERE id = ? """, (game_id))
-	player = c.fetchone()
-	if player == user:
+	c.execute("""SELECT player1 FROM games WHERE id = ? """, (game_id,))
+	player = c.fetchone()[0]
+	if player == user: 
 		c.execute("""UPDATE games SET chosen1 = ? WHERE id = ?""",(name, game_id))
 	else:
 		c.execute("""UPDATE games SET chosen2 = ? WHERE id = ?""",(name, game_id))
