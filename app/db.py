@@ -8,9 +8,7 @@ cur.execute("""
 	CREATE TABLE IF NOT EXISTS users(
 	  id INTEGER PRIMARY KEY,
 	  username TEXT,
-	  password TEXT,
-      wins INTEGER,
-      games INTEGER)""")
+	  password TEXT)""")
 
 # cur.execute("""
 # 	CREATE TABLE IF NOT EXISTS chatbox(
@@ -53,7 +51,7 @@ def register_user(username, password):
 	if row is not None:
 		return False
 
-	c.execute("""INSERT INTO users(username, password, wins, games) VALUES(?, ?, ?, ?)""",(username, password, 0, 0))
+	c.execute("""INSERT INTO users(username, password) VALUES(?, ?)""",(username, password))
 	db.commit()
 	db.close()
 	return True
@@ -127,6 +125,7 @@ def create_game(username):
 	db.close()
 	return code
 
+
 def fetch_turn(game_id):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
 	c = db.cursor()
@@ -142,6 +141,7 @@ def fetch_turn(game_id):
 	db.commit()
 	db.close()
 	return turn
+
 
 def fetch_otherchosen(username, game_id):
 	db = sqlite3.connect(DB_FILE, check_same_thread=False)
@@ -212,6 +212,7 @@ def update_turn(game_id):
 		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player1, game_id))
 
 	return True
+
 
 def join_game(game_id, username):
 	db = sqlite3.connect(DB_FILE)
