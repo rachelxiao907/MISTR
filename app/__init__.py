@@ -27,8 +27,8 @@ def login():
 	Retrieves user login inputs and checks it against the "users" database table.
 	Brings user to home page after successful login.
 	"""
-	# if logged_in():
-	#     return redirect("/")
+	if logged_in():
+	    return redirect("/game")
 
 	if request.method == "GET": #just getting to the page with no inputs
 		return render_template("login.html")
@@ -58,8 +58,8 @@ def register():
 	Checks it against the database to make sure the information is unique.
 	Adds information to the "users" database table.
 	"""
-	# if logged_in():
-	# 	return redirect("/")
+	if logged_in():
+		return redirect("/game")
 
 	# Default page
 	if request.method == "GET":
@@ -80,6 +80,17 @@ def register():
 		return render_template("register.html", explain="Username already exists")
 	else:
 		return redirect("/login")
+
+
+@app.route("/logout")
+def logout():
+	"""
+	Removes user from session.
+	"""
+	if logged_in():
+		session.pop("user")
+		session.pop("user_id")
+	return redirect("/")
 
 
 @app.route("/game", methods=['GET', 'POST'])
