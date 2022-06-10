@@ -124,6 +124,13 @@ def updating_chat():
     })
     return json
 
+@app.route("/turn_process", methods=['GET', 'POST'])
+def update_turn():
+    db.update_turn(session["game_id"])
+    print("turn: " + db.fetch_turn(session["game_id"]))
+    return "true"
+
+
 @app.route("/firstclick", methods=['GET', 'POST'])
 def firstClick():
 	if request.method == "POST":

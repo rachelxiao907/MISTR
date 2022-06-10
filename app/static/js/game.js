@@ -206,6 +206,21 @@ $(function() {
   });
 })
 
+$(function() {
+  $('#end_turn').bind('click', function() {
+    $.getJSON('/turn_process', function(data) { //receive data from python!
+      
+    })
+
+    .done(function(data){
+
+    });
+  });
+})
+
+
+
+
 function update_chat(data) {
   var chatbox = document.getElementById("container");
   chatbox.innerHTML = data;

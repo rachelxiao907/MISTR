@@ -142,7 +142,34 @@ def fetch_turn(game_id):
 	db.close()
 	return turn
 
+def update_turn(game_id):
+	db = sqlite3.connect(DB_FILE)
+	c = db.cursor()
 
+	c.execute("""
+		SELECT player1
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+
+	player1 = c.fetchone()[0]
+
+	c.execute("""
+		SELECT player2
+		FROM games
+		WHERE id = ?
+	""", (game_id,))
+
+	player2 = c.fetchone()[0]
+
+	print("player1: " + player1 + " player2: " + player2)
+	print(fetch_turn(game_id) == player1)
+	if (fetch_turn(game_id) == player1):
+		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player2, game_id))
+	else:
+		c.execute("""UPDATE games SET turn = ? WHERE id = ?""",(player1, game_id))
+
+	return True
 
 def join_game(game_id, username):
 	db = sqlite3.connect(DB_FILE)
