@@ -19,9 +19,6 @@ User login and register is done
 michelleL -- 2022-06-02 09:17
 Added a js created board - WIP
 
-sadidE -- 2022-06-02 18:26
-Added images to the board
-
 rachelX -- 2022-06-03 09:18
 Added more images for game board
 
@@ -37,9 +34,6 @@ Functions for creating and joining a game in database
 michelleL -- 2022-06-06 18:33
 Clicking a table cell will now "flip" it over
 
-sadidE -- 2022-06-06 20:16
-Made the login and register functionality
-
 michelleL -- 2022-06-07 09:07
 Select mode will select cells (WIP)
 
@@ -48,9 +42,6 @@ Modified database to have two datatables in monitoring games
 
 michelleL -- 2022-06-07 07:48
 Modified select mode to now have a select confirm button
-
-sadidE -- 2022-06-07 21:49
-Made the first click choose the mystery character
 
 rachelX -- 2022-06-08 09:07
 Create game works
@@ -67,9 +58,6 @@ Sending info from game.js to python successful (chatbox)
 rachelX -- 2022-06-08 12:39
 Merged rooms and games data tables
 
-sadidE -- 2022-06-08 21:32
-Made new functions to add the mystery character to the database
-
 michelleL -- 2022-06-09 14:54
 Temporary chat implemented
 
@@ -85,9 +73,6 @@ Personalized chatbox for each game
 michelleL -- 2022-06-09 20:22
 Debugged create game and creation of chatboxes
 
-sadidE -- 2022-06-09 21:02
-Finished the mystery character functionality
-
 michelleL -- 2022-06-09 22:07
 Fetch turn kind of implemented
 
@@ -102,3 +87,6 @@ Select mode debugged, win... WIP
 
 michelleL -- 2022-06-10 12:38
 Redirected to gameover when win is achieved
+
+michelleL -- 2022-06-10 01:27
+Win works!! 
