@@ -59,15 +59,15 @@ var select_mode;
 function setup() {
   select_mode = false;
   update_turn();
+  mode_btn.style.visibility = "hidden";
+  confirm_btn.style.visibility = "hidden";
+  end_turn.style.visibility = "hidden";
   var gameboard = document.getElementById("gameboard");
   var html = "";
   for (var i = 0; i < board.length; i++) {
       html += "<tr>";
       for (var j = 0; j < board[i].length; j++) {
         cell_id = (i * cols + j);
-        // if (cell_id == user_mystery) {
-        //   cell_id = "m"; //m for mystery
-        // }
         if (j < pics.length) {
           html += "<td id=" + cell_id + " class=show> <img src=\"static/img/"+board[i][j].pic+"\" width=\"100\"> <p>" + board[i][j].name + " </p> </td>";
         }
@@ -75,6 +75,7 @@ function setup() {
       html += "</tr>";
   }
   gameboard.insertAdjacentHTML("beforeend", html);
+  alert("Choose the mystery person your opponent has to guess.");
 }
 
 var selected_cell;
@@ -82,17 +83,17 @@ char_name = "";
 var click = 0;
 //clicking a table cell "flips" the card
 function flip() {
-  // console.log("select_mode: " + select_mode);
   document.querySelectorAll('td').forEach(cell => {
     cell.addEventListener('click', event => {
-      console.log("select_mode: " + select_mode);
+      // console.log("select_mode: " + select_mode);
       if (select_mode == false) {
         if (click < 1) {
           cell.className = "chosen";
           click++;
           char_name = nameString(pics[cell.id]);
-          console.log(char_name);
+          // console.log(char_name);
           firstClick();
+
         } else {
           if (cell.className == "show") {
             cell.className = "flipped";
@@ -120,7 +121,7 @@ function flip() {
   })
 }
 
-console.log(click);
+// console.log(click);
 
 function firstClick() {
   $.ajax({
@@ -133,7 +134,7 @@ function firstClick() {
   })
 }
 
-console.log(click);
+// console.log(click);
 
 //function for toggle select
 function toggle_select() {
@@ -150,7 +151,7 @@ function toggle_select() {
     selectmode_btn.innerText = "Select Mode OFF";
 
   }
-  console.log("select_mode: " + select_mode);
+  // console.log("select_mode: " + select_mode);
 }
 
 var confirmed_select;
@@ -162,7 +163,7 @@ function select() {
     if (is_confirmed) {
       confirmed_select = selected_cell;
       //do smth about confirmed_select
-      console.log(confirmed_select.innerText);
+      // console.log(confirmed_select.innerText);
       confirmed_select.className = "show";
       selected_cell = undefined;
       if (select_mode == true) {
@@ -176,7 +177,7 @@ function select() {
       }
     }
   }
-  console.log("select_mode: " + select_mode);
+  // console.log("select_mode: " + select_mode);
 }
 
 function selectmode_btn() {
@@ -194,7 +195,7 @@ chat = "";
 $(function() {
   $('#submitmsg').bind('click', function() {
     var usermsg = $('#usermsg').val();
-    console.log(usermsg);
+    // console.log(usermsg);
     update_chat();
     $.ajax({
       url : '/chatbox',
@@ -206,7 +207,7 @@ $(function() {
 
     })
     .done(function(data){
-      console.log(data);
+      // console.log(data);
       update_chat(data);
     });
   });
@@ -222,9 +223,9 @@ $(function() {
   });
 })
 
-mode_btn = document.getElementById("select_mode");
-confirm_btn = document.getElementById("select");
-endturn_btn = document.getElementById("end_turn");
+var mode_btn = document.getElementById("select_mode");
+var confirm_btn = document.getElementById("select");
+var endturn_btn = document.getElementById("end_turn");
 
 function update_turn() {
   $.getJSON('/updateturn_process', function(data) { //receive data from python!
@@ -232,16 +233,24 @@ function update_turn() {
   .done(function(data){ //do this once you get data
     var turn = document.getElementById("turn");
     turn.innerText = "Turn: " + data["turn"];
-    if (data["turn"] != data["username"]) {
-      mode_btn.style.visibility = "hidden";
-      confirm_btn.style.visibility = "hidden";
-      end_turn.style.visibility = "hidden";
+    if(char_name != "") {
+      if (data["turn"] != data["username"]) {
+        mode_btn.style.visibility = "hidden";
+        confirm_btn.style.visibility = "hidden";
+        end_turn.style.visibility = "hidden";
+      } else {
+        mode_btn.style.visibility = "visible";
+        confirm_btn.style.visibility = "visible";
+        end_turn.style.visibility = "visible";
+      }
     } else {
-      mode_btn.style.visibility = "visible";
-      confirm_btn.style.visibility = "visible";
-      end_turn.style.visibility = "visible";
+        mode_btn.style.visibility = "hidden";
+        confirm_btn.style.visibility = "hidden";
+        end_turn.style.visibility = "hidden";
     }
   });
+
+  // });
 }
 
 var is_win = false;
@@ -252,10 +261,10 @@ $(function() {
     })
     .done(function(data){
       select();
-      console.log("winner char: " + data["chosen"]);
+      // console.log("winner char: " + data["chosen"]);
       var win_char = data["chosen"];
       if (win_char == confirmed_select.innerText) {
-        console.log("asdfsfsfasdfs. YOU WIN");
+        // console.log("asdfsfsfasdfs. YOU WIN");
         is_win = true;
         win_alert();
       }
@@ -267,7 +276,7 @@ function gameover_redirect() {
   var site_location = window.location.toString();
   var len = site_location.length - 4;
   var new_location = site_location.substring(0,len) + "gameover"
-  console.log("location: " + new_location);
+  // console.log("location: " + new_location);
   window.location.replace(new_location);
 }
 
@@ -290,7 +299,7 @@ function update_chat(data) {
 }
 
 function get_chatData(){
-  console.log("work?");
+  // console.log("work?");
   $.getJSON('/updating_chat', function(data) { //receive data from python!
   })
   .done(function(data){ //do this once you get data
@@ -304,11 +313,11 @@ function is_win_yet(){
 
   })
   .done(function(data){
-    console.log(data["winner"]);
+    // console.log(data["winner"]);
     winner = data["winner"];
     username = data["username"];
     if (winner != username && winner != null) {
-      console.log("nah, you lost mate");
+      // console.log("nah, you lost mate");
       gameover_redirect();
     }
   })
@@ -321,6 +330,6 @@ setup();
 flip();
 selectmode_btn();
 
-setInterval(get_chatData, 20000); //every 1 second
+setInterval(get_chatData, 2000); //every 1 second
 setInterval(is_win_yet, 5000); //every 1 second
 setInterval(update_turn, 5000); //every 1 second

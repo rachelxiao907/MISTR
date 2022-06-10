@@ -114,3 +114,6 @@ Working on player turns
 
 michelleL -- 2022-06-10 02:59
 Turns work
+
+michelleL -- 2022-06-10 03:25
+Buttons hide when you haven't selected a character yet
