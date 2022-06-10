@@ -94,6 +94,7 @@ function flip() {
           // console.log(char_name);
           firstClick();
 
+
         } else {
           if (cell.className == "show") {
             cell.className = "flipped";
@@ -197,6 +198,7 @@ $(function() {
     var usermsg = $('#usermsg').val();
     // console.log(usermsg);
     update_chat();
+    $('#usermsg').val("");
     $.ajax({
       url : '/chatbox',
       type : 'POST',
@@ -235,6 +237,11 @@ function update_turn() {
     turn.innerText = "Turn: " + data["turn"];
     if(char_name != "") {
       if (data["turn"] != data["username"]) {
+        select_mode = false;
+        if (selected_cell != undefined){
+          selected_cell.className = "show";
+          selected_cell = undefined;
+        }
         mode_btn.style.visibility = "hidden";
         confirm_btn.style.visibility = "hidden";
         end_turn.style.visibility = "hidden";
@@ -331,5 +338,5 @@ flip();
 selectmode_btn();
 
 setInterval(get_chatData, 2000); //every 1 second
-setInterval(is_win_yet, 5000); //every 1 second
-setInterval(update_turn, 5000); //every 1 second
+setInterval(is_win_yet, 2000); //every 1 second
+setInterval(update_turn, 2000); //every 1 second
