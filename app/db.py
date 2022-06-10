@@ -311,7 +311,7 @@ def fetch_latest_chat(game_id):
 
 
 def choose_character(game_id, user, name):
-	print("success");
+	print("success")
 	db = sqlite3.connect(DB_FILE)
 	c = db.cursor()
 	c.execute("""SELECT player1 FROM games WHERE id = ? """, (game_id,))
